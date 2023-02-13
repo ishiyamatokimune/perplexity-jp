@@ -1,0 +1,67 @@
+<meta charset="UTF-8">
+
+<!DOCTYPE html>
+<title>日本語でPerplexity.ai</title>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>JavaScript</title>
+    <style>
+        textarea {
+            width: 500px;
+            height: 250px;
+        }
+    </style>
+</head>
+<body style="text-align: center">
+<script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzOpSVvEno8u4peih3JquJGl4k70L6GL4x-ifNWl7YC13FC1lguJO49Sr9wXd7-Se1J/exec';
+
+    function output(shouldSearch) {
+        const entext = document.getElementById("entext").value;
+
+        let content = encodeURI('text=' + entext + '&source=ja&target=en');
+        let url = API_URL + '?' + content;
+
+        fetch(url)
+            .then(function (response) {
+                if (response.ok) {
+                    return response.text()
+                } else {
+                    throw new Error("Could not reach the API: " + response.statusText);
+                }
+            }).then(function (data) {
+            let isJapanese = document.getElementById('switch_jp');
+            let tmp_url = 'https://www.perplexity.ai/?q=' + data
+            if (isJapanese.checked) {
+                tmp_url = tmp_url + ' について日本語で答えて';
+            }
+            document.getElementById("jatext").value = data
+            // let shouldSearch = document.getElementById('switch');
+            if (shouldSearch) {
+                window.open(tmp_url);
+            }
+        }).catch(function (error) {
+            document.getElementById("jatext").value = error.message;
+        });
+    }
+</script>
+
+<header>
+    <h1>日本語でPerplexity.ai</h1>
+</header>
+
+<form onsubmit="output(); return false;">
+    <input type="text" id="entext" placeholder="入力してください"/>
+    <input type="button" value="翻訳して検索" onclick="output(true)"/>
+    <input type="button" value="翻訳" onclick="output(false)"/>
+    <br>
+    <input type="checkbox" id="switch_jp" value="日本語で" checked="checked">
+    <label for="switch_jp">日本語で答えてもらう</label>
+
+</form>
+
+<br>
+<textarea id="jatext"></textarea>
+</body>
+</html>
