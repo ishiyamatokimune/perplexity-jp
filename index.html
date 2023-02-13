@@ -1,6 +1,7 @@
-<meta charset="UTF-8">
-
 <!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>日本語でPerplexity.ai</title>
 <html lang="ja">
 <head>
@@ -18,9 +19,9 @@
     const API_URL = 'https://script.google.com/macros/s/AKfycbzOpSVvEno8u4peih3JquJGl4k70L6GL4x-ifNWl7YC13FC1lguJO49Sr9wXd7-Se1J/exec';
 
     function output(shouldSearch) {
-        const entext = document.getElementById("entext").value;
+        const ja_text = document.getElementById("ja_text").value;
 
-        let content = encodeURI('text=' + entext + '&source=ja&target=en');
+        let content = encodeURI('text=' + ja_text + '&source=ja&target=en');
         let url = API_URL + '?' + content;
 
         fetch(url)
@@ -36,13 +37,13 @@
             if (isJapanese.checked) {
                 tmp_url = tmp_url + ' について日本語で答えて';
             }
-            document.getElementById("jatext").value = data
+            document.getElementById("en_text").value = data
             // let shouldSearch = document.getElementById('switch');
             if (shouldSearch) {
                 window.open(tmp_url);
             }
         }).catch(function (error) {
-            document.getElementById("jatext").value = error.message;
+            document.getElementById("en_text").value = error.message;
         });
     }
 </script>
@@ -52,8 +53,8 @@
 </header>
 
 <div>
-    <label for="entext"></label>
-    <input type="text" id="entext" placeholder="入力してください"/>
+    <label for="ja_text"></label>
+    <input type="text" id="ja_text" placeholder="入力してください"/>
     <br>
     <input type="checkbox" id="switch_jp" value="日本語で" checked="checked">
     <label for="switch_jp">日本語で答えてもらう</label>
@@ -63,6 +64,8 @@
 </div>
 
 <br>
-<label for="jatext"></label><textarea id="jatext"></textarea>
+<label for="en_text">翻訳結果</label>
+<br>
+<textarea id="en_text"></textarea>
 </body>
 </html>
