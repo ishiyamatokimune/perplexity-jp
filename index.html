@@ -51,17 +51,18 @@
     <h1>日本語でPerplexity.ai</h1>
 </header>
 
-<form onsubmit="output(); return false;">
+<div>
+    <label for="entext"></label>
     <input type="text" id="entext" placeholder="入力してください"/>
-    <input type="button" value="翻訳して検索" onclick="output(true)"/>
-    <input type="button" value="翻訳" onclick="output(false)"/>
     <br>
     <input type="checkbox" id="switch_jp" value="日本語で" checked="checked">
     <label for="switch_jp">日本語で答えてもらう</label>
-
-</form>
+    <br>
+    <input type="button" value="検索" onclick="output(true)"/>
+    <input type="button" value="翻訳のみ" onclick="output(false)"/>
+</div>
 
 <br>
-<textarea id="jatext"></textarea>
+<label for="jatext"></label><textarea id="jatext"></textarea>
 </body>
 </html>
