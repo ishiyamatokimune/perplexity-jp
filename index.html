@@ -52,7 +52,7 @@
     <h1>日本語でPerplexity.ai</h1>
 </header>
 
-<div>
+<form onsubmit="output(true); return false;">
     <label for="ja_text"></label>
     <input type="text" id="ja_text" placeholder="入力してください"/>
     <br>
@@ -61,7 +61,7 @@
     <br>
     <input type="button" value="検索" onclick="output(true)"/>
     <input type="button" value="翻訳のみ" onclick="output(false)"/>
-</div>
+</form>
 
 <br>
 <label for="en_text">翻訳結果</label>
